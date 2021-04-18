@@ -1,0 +1,35 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    defaultConfig {
+        applicationId 'jp.tinyport.devlauncher'
+        versionCode 1
+        versionName '0.1.0'
+        signingConfig signingConfigs.debug
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("$rootDir/debug.p12")
+        }
+    }
+}
+
+dependencies {
+    implementation Depends.kotlin.stdlib
+}

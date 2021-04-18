@@ -1,0 +1,25 @@
+include ':app'
+
+def isCi = System.getenv().containsKey("CI")
+def hasCacheServer = hasProperty('cacheServerUri')
+def hasUser = hasProperty('cacheServerUser')
+
+buildCache {
+    local {
+        enabled = !isCi
+    }
+
+    if (hasCacheServer) {
+        remote(HttpBuildCache) {
+            url = cacheServerUri
+            push = isCi
+
+            if (hasUser) {
+                credentials {
+                    username = cacheServerUser
+                    password = cacheServerPassword
+                }
+            }
+        }
+    }
+}
