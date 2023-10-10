@@ -1,10 +1,21 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 android {
+    namespace 'jp.tinyport.devlauncher'
+    compileSdk 34
+    buildToolsVersion = '34.0.0'
+
     defaultConfig {
+        minSdk 24
+        targetSdk 34
         applicationId 'jp.tinyport.devlauncher'
         versionCode 1
         versionName '0.1.0'
@@ -14,8 +25,12 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
         }
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
     }
 
     dependenciesInfo {
@@ -31,5 +46,5 @@ android {
 }
 
 dependencies {
-    implementation Depends.kotlin.stdlib
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 }
